@@ -17,3 +17,4 @@ Esta tela deve ser acessada ao clicar no card "Create New Board" da página ante
 * **Repository Pattern:** O método `save(Board $board)` no seu repositório PHP deve ser capaz de lidar com a gravação desses campos no banco escolhido (PostgreSQL ou MongoDB).
 * **Data Transfer Object (DTO):** Como uma boa prática sênior, espera-se que o candidato use DTOs ou Request Objects para validar os dados vindos do React antes de passá-los ao repositório.
 
+<img width="2664" height="2048" alt="image" src="https://github.com/user-attachments/assets/ca79d1da-3efa-437e-9345-8b82bf0d2e1c" />
