@@ -1,5 +1,3 @@
----
-
 ### 🚀 Desafio Técnico (React + PHP): To-Do List Sênior
 
 O objetivo é avaliar a arquitetura, qualidade de código e automação de ambiente. O candidato deve desenvolver uma aplicação de gerenciamento de tarefas (To-Do List) integrando PHP e React.
