@@ -1,0 +1,401 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "KanbanFlow API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1"
+        }
+    ],
+    "paths": {
+        "/boards": {
+            "get": {
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "Lists all boards",
+                "operationId": "079a5d2b3da6ddd10f1fe67460c0e9e7",
+                "responses": {
+                    "200": {
+                        "description": "List of boards retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Board"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Boards retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "Createa a new board",
+                "operationId": "6f76efd57221ba0724e920ddb7d33c70",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BoardDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Board created successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/boards/{id}": {
+            "get": {
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "Fetches a specific board",
+                "operationId": "600a47f9da57f381bb382207fe0963ac",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do board",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Board found and retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Board"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Board not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/boards/{id}": {
+            "delete": {
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "Delete a board",
+                "operationId": "d97a0c18ca6d4f4b1b2a033ebbe8c0d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Board deleted successfully"
+                    },
+                    "404": {
+                        "description": "Board not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/boards/{id}/tasks": {
+            "get": {
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "List tasks in a board",
+                "operationId": "cb9a95dcb01153dbd2e346a259a8a505",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tasks retrieved successfully"
+                    },
+                    "404": {
+                        "description": "Board not found"
+                    }
+                }
+            }
+        },
+        "/boards/{boardId}/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Lists all tasks of a specific board",
+                "operationId": "cc2c8a8d14d6ed0bb8377c6e01d70ba7",
+                "parameters": [
+                    {
+                        "name": "boardId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of tasks"
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Creates a new task",
+                "operationId": "a737e990cef5769592bc41ee6a62f7f1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Task created successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}/status": {
+            "patch": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Updates the status of a task (Drag & Drop)",
+                "operationId": "7d4b25b4e3325787bdf9990338370471",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "example": "inprogress"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Status atualizado"
+                    },
+                    "422": {
+                        "description": "Status inválido"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}": {
+            "delete": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Delete a task",
+                "operationId": "a2d3ec140e69f8b97ce812eadbe932ac",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Task deleted successfully"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BoardDTO": {
+                "title": "BoardDTO",
+                "description": "Data transfer object for board creation",
+                "required": [
+                    "name",
+                    "theme_color",
+                    "icon_key"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Marketing Launch"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Q4 Campaign execution and asset tracking.",
+                        "nullable": true
+                    },
+                    "theme_color": {
+                        "type": "string",
+                        "example": "#2563eb"
+                    },
+                    "icon_key": {
+                        "type": "string",
+                        "example": "megaphone"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "example": "Marketing",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "TaskDTO": {
+                "title": "TaskDTO",
+                "required": [
+                    "board_id",
+                    "title",
+                    "status"
+                ],
+                "properties": {
+                    "board_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Fix Header Layout"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Adjusting padding on mobile devices",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "todo"
+                    }
+                },
+                "type": "object"
+            },
+            "Board": {
+                "title": "Board",
+                "description": "Modelo de Board no banco de dados",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Developer Sprint"
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "theme_color": {
+                        "type": "string",
+                        "example": "#2563eb"
+                    },
+                    "icon_key": {
+                        "type": "string",
+                        "example": "rocket"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "tasks": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "tag": {
+                        "type": "string",
+                        "example": "urgent",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Boards",
+            "description": "Boards"
+        },
+        {
+            "name": "Tasks",
+            "description": "Tasks"
+        }
+    ]
+}
