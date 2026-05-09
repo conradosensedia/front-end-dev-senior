@@ -1,4 +1,4 @@
-import { MoreHorizontal, MessageSquare, Map, Megaphone, Wrench, Users, Calendar, CheckSquare } from 'lucide-react';
+import { MoreVertical, MessageSquare, Map, Megaphone, Wrench, Users, Calendar, CheckSquare } from 'lucide-react';
 import { getIconColorClasses } from '../../utils/colors';
 
 const iconMap = {
@@ -22,22 +22,22 @@ export default function BoardCard({ name, description, tasks_count, created_at, 
           <IconComponent size={24} />
         </div>
         <button className="text-slate-400 hover:text-slate-600 transition-colors">
-          <MoreHorizontal size={20} />
+          <MoreVertical size={20} />
         </button>
       </div>
 
       <div className="flex-1">
         <div className="flex items-center gap-2 mb-2">
-          <h3 className="font-bold text-slate-800 text-lg leading-snug group-hover:text-blue-600 transition-colors">
+          <h3 className="font-bold text-slate-800 text-lg leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
             {name}
           </h3>
           {tag && (
-            <span className={`${colorClasses} text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider`}>
+            <span className={`${colorClasses} text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider truncate max-w-[100px]`}>
               {tag}
             </span>
           )}
         </div>
-        <p className="text-slate-500 text-sm leading-relaxed mb-6">
+        <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-4 min-h-[40px]">
           {description}
         </p>
       </div>
