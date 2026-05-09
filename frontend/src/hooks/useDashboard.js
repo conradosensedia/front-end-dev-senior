@@ -20,9 +20,31 @@ export function useDashboard() {
         }
     };
 
+    const createBoard = async (data) => {
+        try {
+            setLoading(true);
+            const payload = {
+                name: data.name,
+                description: data.description,
+                theme_color: data.theme_color,
+                icon_key: data.icon_key,
+                tag: data.tag
+            };
+
+            await api.post('/boards', payload);
+            await fetchBoards();
+            return { success: true };
+        } catch (err) {
+            console.error(err);
+            return { success: false, error: 'Erro ao criar board.' };
+        } finally {
+            setLoading(false);
+        }
+    };
+
     useEffect(() => {
         fetchBoards();
     }, []);
 
-    return { boards, loading, error, refresh: fetchBoards };
+    return { boards, loading, error, refresh: fetchBoards, createBoard };
 }

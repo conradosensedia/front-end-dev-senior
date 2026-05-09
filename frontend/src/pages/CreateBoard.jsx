@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ChevronRight, Rocket, BarChart3, Layout, Megaphone, Bug, Palette, Loader2 } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
+import { useDashboard } from '../hooks/useDashboard';
 import { AVAILABLE_COLORS } from '../utils/colors';
 
 const ICONS = [
@@ -14,24 +15,32 @@ const ICONS = [
 ];
 
 export default function CreateBoard() {
+    const { createBoard } = useDashboard();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         description: '',
         color: AVAILABLE_COLORS[0],
-        icon: 'layout',
+        icon_key: 'rocket',
         tag: '',
     });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
+        const result = await createBoard({
+            name: formData.name,
+            description: formData.description || '',
+            theme_color: formData.color,
+            icon_key: formData.icon_key,
+            tag: formData.tag || ''
+        });
 
-        setTimeout(() => {
-            setLoading(false);
+        if (result.success) {
             navigate('/');
-        }, 1500);
+        } else {
+            alert(result.error);
+        }
     };
 
     return (
@@ -120,8 +129,8 @@ export default function CreateBoard() {
                                     <button
                                         key={id}
                                         type="button"
-                                        onClick={() => setFormData({ ...formData, icon: id })}
-                                        className={`flex justify-center items-center p-4 rounded-xl border-2 transition-all h-16 ${formData.icon === id ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-slate-100 text-slate-400'}`}
+                                        onClick={() => setFormData({ ...formData, icon_key: id })}
+                                        className={`flex justify-center items-center p-4 rounded-xl border-2 transition-all h-16 ${formData.icon_key === id ? 'border-blue-600 bg-blue-50 text-blue-600' : 'border-slate-100 text-slate-400'}`}
                                     >
                                         <Icon size={24} />
                                     </button>
