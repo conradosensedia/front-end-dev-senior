@@ -102,6 +102,126 @@
                     }
                 }
             }
+        },
+        "/boards/{boardId}/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Lists all tasks of a specific board",
+                "operationId": "cc2c8a8d14d6ed0bb8377c6e01d70ba7",
+                "parameters": [
+                    {
+                        "name": "boardId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of tasks"
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Creates a new task",
+                "operationId": "a737e990cef5769592bc41ee6a62f7f1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskDTO"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Task created successfully"
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}/status": {
+            "patch": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Atualiza o status de uma tarefa (Drag & Drop)",
+                "operationId": "7d4b25b4e3325787bdf9990338370471",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "example": "inprogress"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Status atualizado"
+                    },
+                    "422": {
+                        "description": "Status inválido"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}": {
+            "delete": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Delete a task",
+                "operationId": "a2d3ec140e69f8b97ce812eadbe932ac",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Task deleted successfully"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -124,13 +244,41 @@
                         "example": "Q4 Campaign execution and asset tracking.",
                         "nullable": true
                     },
-                    "themeColor": {
+                    "theme_color": {
                         "type": "string",
                         "example": "#2563eb"
                     },
-                    "iconKey": {
+                    "icon_key": {
                         "type": "string",
                         "example": "megaphone"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskDTO": {
+                "title": "TaskDTO",
+                "required": [
+                    "board_id",
+                    "title",
+                    "status"
+                ],
+                "properties": {
+                    "board_id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Fix Header Layout"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Adjusting padding on mobile devices",
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "todo"
                     }
                 },
                 "type": "object"
@@ -176,6 +324,10 @@
         {
             "name": "Boards",
             "description": "Boards"
+        },
+        {
+            "name": "Tasks",
+            "description": "Tasks"
         }
     ]
 }
