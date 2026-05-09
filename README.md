@@ -61,7 +61,9 @@ Este projeto foi configurado para ser iniciado com apenas **um comando**, utiliz
 
 3.  **Acesse a aplicação:**
     Após o término do script, a api estará disponível em: [http://localhost/api/v1](http://localhost/api/v1) (ou a porta configurada no seu compose.yaml).
+    
     O frontend estará disponível em: [http://localhost:5173/](http://localhost:5173/) (ou a porta configurada no seu compose.yaml).
+    
     A documentação estará disponível atráves do Swagger em: [http://localhost/api/documentation/](http://localhost/api/documentation/).
 
 ---
