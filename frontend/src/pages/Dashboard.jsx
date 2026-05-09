@@ -5,9 +5,11 @@ import { useDashboard } from '../hooks/useDashboard';
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
-    const { boards, loading } = useDashboard();
+    const { boards, loading, error } = useDashboard();
 
     if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+
+    if (error) return <div className="p-8 text-red-400">{error}</div>;
 
     return (
         <div className="flex min-h-screen bg-slate-50">
