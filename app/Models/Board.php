@@ -18,6 +18,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: "created_at", type: "string", format: "date-time"),
         new OA\Property(property: "updated_at", type: "string", format: "date-time"),
         new OA\Property(property: "tasks", type: "integer", example: 5),
+        new OA\Property(property: "tag", type: "string", example: "urgent", nullable: true),
     ]
 )]
 class Board extends Model
@@ -29,6 +30,7 @@ class Board extends Model
         'description',
         'theme_color',
         'icon_key',
+        'tag',
     ];
 
     public function tasks(): \Illuminate\Database\Eloquent\Relations\HasMany

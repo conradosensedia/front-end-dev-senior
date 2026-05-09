@@ -16,4 +16,8 @@ interface BoardRepositoryInterface
     public function create(BoardDTO $data): Board;
 
     public function findById(int $id): ?Board;
+
+    public function delete(int $id): bool;
+
+    public function getTasksByBoard(int $boardId): array;
 }

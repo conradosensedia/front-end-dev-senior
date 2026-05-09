@@ -27,6 +27,9 @@ readonly class BoardDTO
 
         #[OA\Property(property: "icon_key", example: "megaphone")]
         public string $iconKey,
+
+        #[OA\Property(example: "Marketing")]
+        public ?string $tag,
     ) {}
 
     public static function fromRequest(StoreBoardRequest $request): self
@@ -36,6 +39,7 @@ readonly class BoardDTO
             description: $request->validated('description'),
             themeColor: $request->validated('theme_color'),
             iconKey: $request->validated('icon_key'),
+            tag: $request->validated('tag'),
         );
     }
 
@@ -46,6 +50,7 @@ readonly class BoardDTO
             'description' => $this->description,
             'theme_color' => $this->themeColor,
             'icon_key' => $this->iconKey,
+            'tag' => $this->tag,
         ];
     }
 }

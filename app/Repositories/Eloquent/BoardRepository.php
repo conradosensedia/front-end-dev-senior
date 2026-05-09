@@ -13,7 +13,7 @@ class BoardRepository implements BoardRepositoryInterface
 {
     private array $columns = ['*'];
 
-     /** @return Collection<int, Board> */
+    /** @return Collection<int, Board> */
     public function all(): Collection
     {
         return Board::withCount('tasks')->get();
@@ -27,5 +27,25 @@ class BoardRepository implements BoardRepositoryInterface
     public function findById(int $id): ?Board
     {
         return Board::withCount('tasks')->find($id, $this->columns);
+    }
+
+    public function delete(int $id): bool
+    {
+        $board = Board::find($id, $this->columns);;
+
+        if (!$board) {
+            return false;
+        }
+
+        return (bool) $board->delete();
+    }
+
+    public function getTasksByBoard(int $boardId): array 
+    {
+        $board = Board::with(['tasks' => function($query) {
+            $query->orderBy('created_at', 'asc');
+        }])->find($boardId);
+    
+        return $board ? $board->toArray() : [];
     }
 }
