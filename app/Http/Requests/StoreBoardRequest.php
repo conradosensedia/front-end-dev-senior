@@ -22,4 +22,14 @@ class StoreBoardRequest extends FormRequest
             'icon_key' => ['required', 'string', 'in:rocket,chart,layout,megaphone,bug,palette'],
         ];
     }
+
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+    throw new \Illuminate\Http\Exceptions\HttpResponseException(
+        response()->json([
+            'errors' => $validator->errors(),
+            'message' => 'Validation error detected by Request.'
+        ], 422)
+    );
+    }
 }

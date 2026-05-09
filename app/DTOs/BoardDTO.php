@@ -22,10 +22,10 @@ readonly class BoardDTO
         #[OA\Property(example: "Q4 Campaign execution and asset tracking.")]
         public ?string $description,
 
-        #[OA\Property(example: "#2563eb")]
+        #[OA\Property(property: "theme_color", example: "#2563eb")]
         public string $themeColor,
 
-        #[OA\Property(example: "megaphone")]
+        #[OA\Property(property: "icon_key", example: "megaphone")]
         public string $iconKey,
     ) {}
 
