@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useKanban } from '../hooks/useKanban';
 import { AddTaskModal } from '../components/modals/AddTaskModal';
 
-const Column = ({ title, status, tasks, count, onAddClick }) => (
+const Column = ({ title, status, tasks, count, onAddClick, onDeleteTask }) => (
     <div className="bg-slate-50/50 rounded-2xl p-4 flex flex-col gap-4 min-w-[320px] max-h-full">
         <div className="flex justify-between items-center px-2">
             <div className="flex items-center gap-2">
@@ -21,7 +21,7 @@ const Column = ({ title, status, tasks, count, onAddClick }) => (
 
         <div className="flex flex-col gap-3 flex-1 overflow-y-auto pr-1 custom-scrollbar">
             {tasks.map(task => (
-                <TaskCard key={task.id} task={task} />
+                <TaskCard key={task.id} task={task} onDelete={onDeleteTask} />
             ))}
 
             <button
@@ -37,7 +37,7 @@ const Column = ({ title, status, tasks, count, onAddClick }) => (
 
 export default function KanbanBoard() {
     const { id } = useParams();
-    const { todoTasks, inProgressTasks, doneTasks, boardName, boardDesc, addTask, loading, error } = useKanban(id);
+    const { todoTasks, inProgressTasks, doneTasks, boardName, boardDesc, addTask, loading, deleteTask } = useKanban(id);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [defaultStatus, setDefaultStatus] = useState('todo');
@@ -78,6 +78,7 @@ export default function KanbanBoard() {
                         count={todoTasks.length}
                         boardId={id}
                         onAddClick={handleOpenModal}
+                        onDeleteTask={deleteTask}
                     />
                     <Column
                         title="In Progress"
@@ -86,6 +87,7 @@ export default function KanbanBoard() {
                         count={inProgressTasks.length}
                         boardId={id}
                         onAddClick={handleOpenModal}
+                        onDeleteTask={deleteTask}
                     />
                     <Column
                         title="Done"
@@ -94,6 +96,7 @@ export default function KanbanBoard() {
                         count={doneTasks.length}
                         boardId={id}
                         onAddClick={handleOpenModal}
+                        onDeleteTask={deleteTask}
                     />
                 </div>
 

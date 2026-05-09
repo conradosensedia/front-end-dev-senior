@@ -34,11 +34,23 @@ export function useKanban(boardId) {
                 ...taskData,
                 board_id: parseInt(boardId)
             });
-            
+
             setTasks(prev => [...prev, response.data.data]);
             return { success: true };
         } catch (err) {
             console.error(err);
+            return { success: false };
+        }
+    };
+
+    const deleteTask = async (taskId) => {
+        try {
+            await api.delete(`/tasks/${taskId}`);
+
+            setTasks(prev => prev.filter(t => t.id !== taskId));
+            return { success: true };
+        } catch (err) {
+            console.error("Error in delete task:", err);
             return { success: false };
         }
     };
@@ -68,6 +80,7 @@ export function useKanban(boardId) {
         error,
         refresh: fetchTasks,
         addTask,
+        deleteTask,
         moveTask
     };
 }
