@@ -103,6 +103,60 @@
                 }
             }
         },
+        "/api/v1/boards/{id}": {
+            "delete": {
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "Delete a board",
+                "operationId": "d97a0c18ca6d4f4b1b2a033ebbe8c0d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Board deleted successfully"
+                    },
+                    "404": {
+                        "description": "Board not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/boards/{id}/tasks": {
+            "get": {
+                "tags": [
+                    "Boards"
+                ],
+                "summary": "List tasks in a board",
+                "operationId": "cb9a95dcb01153dbd2e346a259a8a505",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tasks retrieved successfully"
+                    },
+                    "404": {
+                        "description": "Board not found"
+                    }
+                }
+            }
+        },
         "/boards/{boardId}/tasks": {
             "get": {
                 "tags": [
@@ -251,6 +305,11 @@
                     "icon_key": {
                         "type": "string",
                         "example": "megaphone"
+                    },
+                    "tag": {
+                        "type": "string",
+                        "example": "Marketing",
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -318,6 +377,11 @@
                     "tasks": {
                         "type": "integer",
                         "example": 5
+                    },
+                    "tag": {
+                        "type": "string",
+                        "example": "urgent",
+                        "nullable": true
                     }
                 },
                 "type": "object"

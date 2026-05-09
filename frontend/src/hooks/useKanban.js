@@ -63,7 +63,7 @@ export function useKanban(boardId) {
         ));
 
         try {
-            // await api.patch(`/tasks/${taskId}`, { status: newStatus });
+            await api.patch(`/tasks/${taskId}/status`, { status: newStatus });
         } catch (error) {
             setTasks(previousTasks);
             alert("Error updating task. Reverting...");

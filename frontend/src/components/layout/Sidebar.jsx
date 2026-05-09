@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
     return (
-        <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-slate-200 h-screen fixed left-0 top-0">
+        <aside className="hidden lg:flex flex-col w-64 z-40 bg-white border-r border-slate-200 h-screen fixed left-0 top-0">
 
             <div className="p-6 flex items-center gap-3">
                 <div className="bg-blue-600 p-1.5 rounded-lg">
