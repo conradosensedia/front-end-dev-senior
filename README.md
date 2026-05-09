@@ -1,58 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📋 Kanban Flow
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Um sistema de gerenciamento de tarefas (Kanban) moderno, construído para oferecer agilidade e organização. Este projeto foi desenvolvido focado em alta performance e interatividade via Drag & Drop.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Sobre o Projeto
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+O **Kanban Flow** permite que usuários criem quadros de tarefas e gerenciem seus fluxos de trabalho movendo cards entre colunas de status (To Do, In Progress, Done). A interface foi projetada para ser intuitiva, com feedback em tempo real e persistência de dados.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Principais Funcionalidades
+*   **Gestão de Boards:** Criação e organização de múltiplos quadros.
+*   **Sistema Drag & Drop:** Movimentação fluida de tarefas entre colunas usando `dnd-kit`.
+*   **CRUD Completo:** Criação, edição e exclusão de tarefas com modais integrados.
+*   **Interface Responsiva:** Design limpo e adaptável desenvolvido com Tailwind CSS.
+*   **Arquitetura API:** Backend em Laravel servindo dados de forma performática para o Frontend em React.
+*   **Documentação Swagger:** Documentação disponivel no Swagger.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Tecnologias Utilizadas
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### **Backend**
+*   **Laravel 13**: Framework PHP moderno para a API.
+*   **Laravel Sail**: Ambiente de desenvolvimento baseado em Docker.
+*   **PostgreSQL**: Banco de dados relacional para persistência.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### **Frontend**
+*   **React + Vite**: Biblioteca para interfaces reativas e build ultra-rápido.
+*   **Tailwind CSS**: Estilização baseada em utilitários.
+*   **Dnd-kit**: Biblioteca modular para interações de arrastar e soltar.
+*   **Lucide React**: Biblioteca de ícones modernos.
 
-## Agentic Development
+A escolha pelo PostgreSQL em vez do MongoDB fundamenta-se na necessidade de integridade referencial e consistência de dados, garantindo que os relacionamentos entre usuários, quadros e tarefas sejam geridos de forma robusta via chaves estrangeiras. Enquanto bancos NoSQL oferecem flexibilidade para dados amorfos, o modelo relacional do Postgres mostrou-se superior para este sistema devido à estrutura previsível das tarefas e à eficiência na execução de consultas complexas de ordenação, essenciais para a precisão do fluxo de Drag and Drop.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
-```bash
-composer require laravel/boost --dev
+## 📦 Como Rodar o Projeto
 
-php artisan boost:install
-```
+Este projeto foi configurado para ser iniciado com apenas **um comando**, utilizando Docker e um script de automação.
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### **Pré-requisitos**
+*   Docker instalado.
+*   Node.js e NPM (para dependências locais, se necessário).
+*   PHP 8.3+ e Composer.
 
-## Contributing
+### **Passo a Passo**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1.  **Clone o repositório:**
+    ```bash
+    git clone https://github.com/seu-usuario/kanban-flow.git
+    cd kanban-flow
+    ```
 
-## Code of Conduct
+2.  **Execute o script de setup:**
+    O script irá configurar o seu arquivo `.env`, subir os containers do Docker, rodar as migrations e gerar o build do frontend.
+    ```bash
+    chmod +x setup.sh
+    ./setup.sh
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3.  **Acesse a aplicação:**
+    Após o término do script, a api estará disponível em: [http://localhost/api/v1](http://localhost/api/v1) (ou a porta configurada no seu compose.yaml).
+    O frontend estará disponível em: [http://localhost:5173/](http://localhost:5173/) (ou a porta configurada no seu compose.yaml).
+    A documentação estará disponível atráves do Swagger em: [http://localhost/api/documentation/](http://localhost/api/documentation/).
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 📐 Decisões de Engenharia
 
-## License
+Durante o desenvolvimento, priorizei os seguintes pontos:
+*   **UX Otimista:** Ao mover uma tarefa, a interface é atualizada instantaneamente no frontend antes mesmo da resposta do servidor, garantindo uma sensação de rapidez.
+*   **Componentização:** Divisão clara entre `Column`, `TaskCard` e `Modals` para facilitar a manutenção.
+*   **Segurança e Consistência:** Uso de Form Requests no Laravel para validação de dados e deleção lógica de tarefas.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
