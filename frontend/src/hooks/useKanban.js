@@ -28,6 +28,21 @@ export function useKanban(boardId) {
         if (boardId) fetchTasks();
     }, [boardId, fetchTasks]);
 
+    const addTask = async (taskData) => {
+        try {
+            const response = await api.post(`/tasks`, {
+                ...taskData,
+                board_id: parseInt(boardId)
+            });
+            
+            setTasks(prev => [...prev, response.data.data]);
+            return { success: true };
+        } catch (err) {
+            console.error(err);
+            return { success: false };
+        }
+    };
+
     const moveTask = async (taskId, newStatus) => {
         const previousTasks = [...tasks];
 
@@ -49,7 +64,10 @@ export function useKanban(boardId) {
         doneTasks: tasks.filter(t => t.status === 'done'),
         boardName: boardName,
         boardDesc: boardDesc,
+        loading,
+        error,
         refresh: fetchTasks,
+        addTask,
         moveTask
     };
 }

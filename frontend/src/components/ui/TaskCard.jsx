@@ -15,7 +15,7 @@ export default function TaskCard({ task }) {
                     {task.title}
                 </h4>
                 <p className="text-sm text-slate-500 mt-2 leading-relaxed">
-                    {task.desc}
+                    {task.description}
                 </p>
             </div>
         </div>
