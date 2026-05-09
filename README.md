@@ -48,8 +48,8 @@ Este projeto foi configurado para ser iniciado com apenas **um comando**, utiliz
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/seu-usuario/kanban-flow.git
-    cd kanban-flow
+    git clone https://github.com/pabloferreiradias/front-end-dev-senior.git
+    cd front-end-dev-senior
     ```
 
 2.  **Execute o script de setup:**
