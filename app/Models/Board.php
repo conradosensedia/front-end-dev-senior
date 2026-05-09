@@ -17,6 +17,7 @@ use OpenApi\Attributes as OA;
         new OA\Property(property: "icon_key", type: "string", example: "rocket"),
         new OA\Property(property: "created_at", type: "string", format: "date-time"),
         new OA\Property(property: "updated_at", type: "string", format: "date-time"),
+        new OA\Property(property: "tasks", type: "integer", example: 5),
     ]
 )]
 class Board extends Model
@@ -29,4 +30,14 @@ class Board extends Model
         'theme_color',
         'icon_key',
     ];
+
+    public function tasks(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
+
+    protected function serializeDate(\DateTimeInterface $date): string
+    {
+        return $date->format('M d');
+    }
 }

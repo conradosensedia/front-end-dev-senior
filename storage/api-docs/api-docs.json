@@ -159,7 +159,7 @@
                 "tags": [
                     "Tasks"
                 ],
-                "summary": "Atualiza o status de uma tarefa (Drag & Drop)",
+                "summary": "Updates the status of a task (Drag & Drop)",
                 "operationId": "7d4b25b4e3325787bdf9990338370471",
                 "parameters": [
                     {
@@ -314,6 +314,10 @@
                     "updated_at": {
                         "type": "string",
                         "format": "date-time"
+                    },
+                    "tasks": {
+                        "type": "integer",
+                        "example": 5
                     }
                 },
                 "type": "object"

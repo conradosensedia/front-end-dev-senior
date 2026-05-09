@@ -16,7 +16,7 @@ class BoardRepository implements BoardRepositoryInterface
      /** @return Collection<int, Board> */
     public function all(): Collection
     {
-        return Board::all();
+        return Board::withCount('tasks')->get();
     }
 
     public function create(BoardDTO $data): Board
@@ -26,6 +26,6 @@ class BoardRepository implements BoardRepositoryInterface
 
     public function findById(int $id): ?Board
     {
-        return Board::find($id, $this->columns);
+        return Board::withCount('tasks')->find($id, $this->columns);
     }
 }
