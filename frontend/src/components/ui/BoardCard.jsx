@@ -1,14 +1,15 @@
 import React from 'react';
-import { MoreVertical, MessageSquare, Map, Megaphone, Wrench, Users, Calendar, CheckSquare, Trash2 } from 'lucide-react';
+import { MoreVertical, Rocket, BarChart3, Megaphone, Layout, Bug, Palette, Calendar, CheckSquare, Trash2 } from 'lucide-react';
 import { getIconColorClasses } from '../../utils/colors';
 import { useNavigate } from 'react-router-dom';
 
 const iconMap = {
+  rocket: { icon: Rocket },
+  chart: { icon: BarChart3 },
+  layout: { icon: Layout },
   megaphone: { icon: Megaphone },
-  map: { icon: Map },
-  wrench: { icon: Wrench },
-  users: { icon: Users },
-  feedback: { icon: MessageSquare },
+  bug: { icon: Bug },
+  palette: { icon: Palette },
 };
 
 export default function BoardCard({ id, name, description, tasks_count, created_at, icon_key, theme_color, tag, onDelete }) {
