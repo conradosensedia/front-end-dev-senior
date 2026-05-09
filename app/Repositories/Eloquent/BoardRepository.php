@@ -39,4 +39,13 @@ class BoardRepository implements BoardRepositoryInterface
 
         return (bool) $board->delete();
     }
+
+    public function getTasksByBoard(int $boardId): array 
+    {
+        $board = Board::with(['tasks' => function($query) {
+            $query->orderBy('created_at', 'asc');
+        }])->find($boardId);
+    
+        return $board ? $board->toArray() : [];
+    }
 }

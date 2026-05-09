@@ -1,55 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import api from '../services/api';
 
 export function useKanban(boardId) {
     const [tasks, setTasks] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [boardName, setBoardName] = useState('');
+    const [boardDesc, setBoardDesc] = useState('');
+
+    const fetchTasks = useCallback(async () => {
+        try {
+            setLoading(true);
+            const response = await api.get(`/boards/${boardId}/tasks`);
+            setBoardName(response.data.data.name);
+            setBoardDesc(response.data.data.description);
+            setTasks(response.data.data.tasks);
+            setError(null);
+        } catch (err) {
+            setError('Error loading tasks.');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }, [boardId]);
 
     useEffect(() => {
-        const mockTasks = [
-            {
-                id: 1,
-                title: 'API Endpoint Refactoring',
-                desc: 'Clean up the legacy controllers in the authentication module for better performance.',
-                status: 'todo',
-                priorityColor: 'bg-blue-600'
-            },
-            {
-                id: 2,
-                title: 'Docker Configuration',
-                desc: 'Update Dockerfile to use a smaller alpine base image for faster CI/CD builds.',
-                status: 'todo',
-                priorityColor: 'bg-blue-600'
-            },
-            {
-                id: 3,
-                title: 'Unit Test Coverage',
-                desc: 'Increase coverage to 85% for the core payment processing logic.',
-                status: 'todo',
-                priorityColor: 'bg-blue-600'
-            },
-            {
-                id: 4,
-                title: 'UI Design Implementation',
-                desc: 'Translate the new design system components into Tailwind CSS utility classes.',
-                status: 'inprogress',
-                priorityColor: 'bg-blue-600'
-            },
-            {
-                id: 5,
-                title: 'Database Migration',
-                desc: 'Upgrade Postgres instance to version 15 and optimize indexes.',
-                status: 'done',
-                priorityColor: 'bg-emerald-500'
-            },
-            {
-                id: 6,
-                title: 'SSL Certificate Renewal',
-                desc: 'Renew production certificates and verify automated renewal scripts.',
-                status: 'done',
-                priorityColor: 'bg-emerald-500'
-            }
-        ];
-        setTasks(mockTasks);
-    }, [boardId]);
+        if (boardId) fetchTasks();
+    }, [boardId, fetchTasks]);
 
     const moveTask = async (taskId, newStatus) => {
         const previousTasks = [...tasks];
@@ -62,7 +39,7 @@ export function useKanban(boardId) {
             // await api.patch(`/tasks/${taskId}`, { status: newStatus });
         } catch (error) {
             setTasks(previousTasks);
-            alert("Erro ao atualizar tarefa. Revertendo...");
+            alert("Error updating task. Reverting...");
         }
     };
 
@@ -70,6 +47,9 @@ export function useKanban(boardId) {
         todoTasks: tasks.filter(t => t.status === 'todo'),
         inProgressTasks: tasks.filter(t => t.status === 'inprogress'),
         doneTasks: tasks.filter(t => t.status === 'done'),
+        boardName: boardName,
+        boardDesc: boardDesc,
+        refresh: fetchTasks,
         moveTask
     };
 }

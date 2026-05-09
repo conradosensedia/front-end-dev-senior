@@ -32,7 +32,7 @@ const Column = ({ title, tasks, count, onAdd, boardId }) => (
 
 export default function KanbanBoard() {
     const { id } = useParams();
-    const { todoTasks, inProgressTasks, doneTasks } = useKanban(id);
+    const { todoTasks, inProgressTasks, doneTasks, boardName, boardDesc } = useKanban(id);
 
     return (
         <div className="flex min-h-screen bg-white">
@@ -42,13 +42,13 @@ export default function KanbanBoard() {
                 <nav className="flex items-center gap-2 text-sm text-slate-500 mb-4">
                     <Link to="/" className="hover:text-blue-600">Workspace</Link>
                     <ChevronRight size={14} />
-                    <Link to={`/board/${id}`} className="hover:text-blue-600">Board Name</Link>
+                    {boardName}
                 </nav>
 
                 <header className="flex justify-between items-center mb-10">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900">Developer Sprint #42</h1>
-                        <p className="text-slate-500">Simplified task management for active cycles.</p>
+                        <h1 className="text-3xl font-bold text-slate-900">{boardName}</h1>
+                        <p className="text-slate-500">{boardDesc}</p>
                     </div>
                     <button className="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">
                         Create New Task
