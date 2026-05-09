@@ -42,9 +42,18 @@ export function useDashboard() {
         }
     };
 
+    const deleteBoard = async (id) => {    
+        try {
+            await api.delete(`/boards/${id}`);
+            setBoards(prev => prev.filter(board => board.id !== id));
+        } catch (err) {
+            alert('Erro ao deletar o board.');
+        }
+    };
+
     useEffect(() => {
         fetchBoards();
     }, []);
 
-    return { boards, loading, error, refresh: fetchBoards, createBoard };
+    return { boards, loading, error, refresh: fetchBoards, createBoard, deleteBoard };
 }

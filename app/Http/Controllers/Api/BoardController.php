@@ -108,4 +108,27 @@ class BoardController extends Controller
 
         return response()->json(['data' => $board]);
     }
+
+    #[OA\Delete(
+        path: "/api/v1/boards/{id}",
+        summary: "Delete a board",
+        tags: ["Boards"],
+        parameters: [
+            new OA\Parameter(name: "id", in: "path", required: true, schema: new OA\Schema(type: "integer"))
+        ],
+        responses: [
+            new OA\Response(response: 204, description: "Board deleted successfully"),
+            new OA\Response(response: 404, description: "Board not found")
+        ]
+    )]
+    public function destroy(int $id): JsonResponse
+    {
+        $deleted = $this->boardRepository->delete($id);
+
+        if (!$deleted) {
+            return response()->json(['message' => 'Board not found")'], 404);
+        }
+
+        return response()->json(null, 204);
+    }
 }

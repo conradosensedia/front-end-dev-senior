@@ -5,7 +5,7 @@ import { useDashboard } from '../hooks/useDashboard';
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
-    const { boards, loading, error } = useDashboard();
+    const { boards, loading, error, deleteBoard } = useDashboard();
 
     if (loading) return <div className="flex justify-center items-center h-screen">Loading...</div>;
 
@@ -27,9 +27,11 @@ export default function Dashboard() {
                     </Link>
 
                     {boards.map((board) => (
-                        <Link to={`/board/${board.id}`}>
-                            <BoardCard key={board.id} {...board} />
-                        </Link>
+                        <BoardCard
+                            key={board.id}
+                            {...board}
+                            onDelete={deleteBoard}
+                        />
                     ))}
                 </div>
             </main>

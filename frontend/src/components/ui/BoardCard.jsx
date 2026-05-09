@@ -1,5 +1,7 @@
-import { MoreVertical, MessageSquare, Map, Megaphone, Wrench, Users, Calendar, CheckSquare } from 'lucide-react';
+import React from 'react';
+import { MoreVertical, MessageSquare, Map, Megaphone, Wrench, Users, Calendar, CheckSquare, Trash2 } from 'lucide-react';
 import { getIconColorClasses } from '../../utils/colors';
+import { useNavigate } from 'react-router-dom';
 
 const iconMap = {
   megaphone: { icon: Megaphone },
@@ -9,21 +11,60 @@ const iconMap = {
   feedback: { icon: MessageSquare },
 };
 
-export default function BoardCard({ name, description, tasks_count, created_at, icon_key, theme_color, tag }) {
+export default function BoardCard({ id, name, description, tasks_count, created_at, icon_key, theme_color, tag, onDelete }) {
   const IconData = iconMap[icon_key] || iconMap.wrench;
   const IconComponent = IconData.icon;
   const colorClasses = getIconColorClasses(theme_color);
+  const navigate = useNavigate();
+  const [showMenu, setShowMenu] = React.useState(false);
+
+  const handleCardClick = () => {
+    navigate(`/board/${id}`);
+  };
+
+  const toggleMenu = (e) => {
+    e.stopPropagation();
+    setShowMenu(!showMenu);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (window.confirm(`Do you really want to delete the board "${name}"?`)) {
+      onDelete(id);
+    }
+    setShowMenu(false);
+  };
 
   return (
-    <div className="bg-white p-6 rounded-l border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer flex flex-col h-full">
+    <div
+      onClick={handleCardClick}
+      className="bg-white p-6 rounded-l border border-slate-100 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer flex flex-col h-full"
+    >
 
       <div className="flex justify-between items-start mb-4">
         <div className={`p-2.5 rounded-xl ${colorClasses}`}>
           <IconComponent size={24} />
         </div>
-        <button className="text-slate-400 hover:text-slate-600 transition-colors">
-          <MoreVertical size={20} />
-        </button>
+        <div className="relative">
+          <button
+            onClick={toggleMenu}
+            className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-50 transition-all"
+          >
+            <MoreVertical size={20} />
+          </button>
+
+          {showMenu && (
+            <div className="absolute right-0 mt-2 w-40 bg-white border border-slate-100 shadow-xl rounded-lg z-10 py-1 overflow-hidden">
+              <button
+                onClick={handleDelete}
+                className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+              >
+                <Trash2 size={16} />
+                Delete Board
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="flex-1">

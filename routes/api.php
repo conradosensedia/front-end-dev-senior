@@ -8,6 +8,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/boards', [BoardController::class, 'index']);
     Route::post('/boards', [BoardController::class, 'store']);
     Route::get('/boards/{id}', [BoardController::class, 'show']);
+    Route::delete('/boards/{id}', [BoardController::class, 'destroy']);
 
     Route::get('/boards/{boardId}/tasks', [TaskController::class, 'index']);
     Route::post('/tasks', [TaskController::class, 'store']);
