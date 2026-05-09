@@ -20,6 +20,7 @@ class StoreBoardRequest extends FormRequest
             'description' => ['nullable', 'string', 'max:1000'],
             'theme_color' => ['required', 'string', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'icon_key' => ['required', 'string', 'in:rocket,chart,layout,megaphone,bug,palette'],
+            'tag' => ['nullable', 'string', 'max:20'],
         ];
     }
 

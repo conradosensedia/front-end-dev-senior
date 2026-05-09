@@ -32,7 +32,7 @@ export default function BoardCard({ name, description, tasks_count, created_at, 
             {name}
           </h3>
           {tag && (
-            <span className="bg-orange-100 text-orange-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">
+            <span className={`${colorClasses} text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider`}>
               {tag}
             </span>
           )}

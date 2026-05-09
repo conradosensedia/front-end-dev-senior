@@ -20,7 +20,8 @@ export default function CreateBoard() {
         name: '',
         description: '',
         color: AVAILABLE_COLORS[0],
-        icon: 'layout'
+        icon: 'layout',
+        tag: '',
     });
 
     const handleSubmit = async (e) => {
@@ -60,6 +61,18 @@ export default function CreateBoard() {
                                 placeholder="e.g. Q4 Marketing Strategy"
                                 value={formData.name}
                                 onChange={e => setFormData({ ...formData, name: e.target.value })}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                            <label className="text-sm font-semibold text-slate-700">
+                                Tag <span className="text-slate-400 font-normal">(optional)</span>
+                            </label>
+                            <input
+                                className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-slate-50/50 focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition-all"
+                                placeholder="e.g. urgent, marketing, design"
+                                value={formData.tag}
+                                onChange={e => setFormData({ ...formData, tag: e.target.value })}
                             />
                         </div>
 
