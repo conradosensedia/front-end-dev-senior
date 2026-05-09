@@ -2,6 +2,7 @@ import Sidebar from '../components/layout/Sidebar';
 import BoardCard from '../components/ui/BoardCard';
 import CreateBoardCard from '../components/ui/CreateBoardCard';
 import { useDashboard } from '../hooks/useDashboard';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
     const { boards, loading } = useDashboard();
@@ -19,10 +20,14 @@ export default function Dashboard() {
                 </header>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    <CreateBoardCard />
-                    
+                    <Link to={`/create-board`}>
+                        <CreateBoardCard />
+                    </Link>
+
                     {boards.map((board) => (
-                        <BoardCard key={board.id} {...board} />
+                        <Link to={`/board/${board.id}`}>
+                            <BoardCard key={board.id} {...board} />
+                        </Link>
                     ))}
                 </div>
             </main>

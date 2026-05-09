@@ -1,4 +1,5 @@
 import { LayoutDashboard } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
     return (
@@ -17,13 +18,15 @@ export default function Sidebar() {
             <nav className="mt-4 flex-1">
                 <ul className="space-y-1">
                     <li>
-                        <a 
-                            href="#" 
-                            className="flex items-center gap-3 px-6 py-3 text-blue-600 bg-blue-50/50 border-l-4 border-blue-600 transition-all font-medium"
-                        >
-                            <LayoutDashboard size={20} />
-                            <span>Dashboard</span>
-                        </a>
+                        <Link to={`/`}>
+                            <a
+                                href="#"
+                                className="flex items-center gap-3 px-6 py-3 text-blue-600 bg-blue-50/50 border-l-4 border-blue-600 transition-all font-medium"
+                            >
+                                <LayoutDashboard size={20} />
+                                <span>Dashboard</span>
+                            </a>
+                        </Link>
                     </li>
                 </ul>
             </nav>
