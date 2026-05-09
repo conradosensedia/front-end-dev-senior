@@ -20,7 +20,7 @@ class TaskRepository implements TaskRepositoryInterface
     public function updateStatus(int $taskId, string $newStatus): Task
     {
         $task = Task::findOrFail($taskId);
-        // Validação rigorosa via Enum antes do persist
+
         $status = TaskStatus::from($newStatus);
         
         $task->update(['status' => $status->value]);

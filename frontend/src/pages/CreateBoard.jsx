@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ChevronRight, Rocket, BarChart3, Layout, Megaphone, Bug, Palette, Loader2 } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
+import { AVAILABLE_COLORS } from '../utils/colors';
 
-const COLORS = ['bg-blue-600', 'bg-orange-500', 'bg-emerald-500', 'bg-pink-500', 'bg-indigo-500', 'bg-slate-800'];
 const ICONS = [
     { id: 'rocket', icon: Rocket },
     { id: 'chart', icon: BarChart3 },
@@ -19,7 +19,7 @@ export default function CreateBoard() {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        color: COLORS[0],
+        color: AVAILABLE_COLORS[0],
         icon: 'layout'
     });
 
@@ -79,13 +79,22 @@ export default function CreateBoard() {
                         <div className="flex flex-col gap-3">
                             <label className="text-sm font-semibold text-slate-700">Theme Color</label>
                             <div className="flex flex-wrap gap-4">
-                                {['#2563eb', '#f59e0b', '#10b981', '#ef4444', '#6366f1', '#1e293b'].map(color => (
+                                {AVAILABLE_COLORS.map(color => (
                                     <button
                                         key={color}
                                         type="button"
                                         onClick={() => setFormData({ ...formData, color })}
-                                        style={{ backgroundColor: color }}
-                                        className={`w-10 h-10 rounded-full transition-all ${formData.color === color ? 'ring-4 ring-offset-2 ring-blue-500' : 'opacity-80'}`}
+                                        title={`Selecionar cor ${color}`}
+                                        className={`
+                                        w-10 h-10 rounded-full transition-all duration-200
+                                        ${formData.color === color
+                                                ? 'ring-4 ring-offset-2 scale-110'
+                                                : 'opacity-70 hover:opacity-100 hover:scale-105'}
+                                    `}
+                                        style={{
+                                            backgroundColor: color,
+                                            boxShadow: formData.color === color ? `0 0 0 4px white, 0 0 0 6px ${color}` : 'none'
+                                        }}
                                     />
                                 ))}
                             </div>
