@@ -76,3 +76,13 @@ Durante o desenvolvimento, priorizei os seguintes pontos:
 *   **Segurança e Consistência:** Uso de Form Requests no Laravel para validação de dados e deleção lógica de tarefas.
 
 ---
+
+## Screenshots
+
+<img width="2564" height="2050" alt="image" src="https://github.com/user-attachments/assets/713c4b81-3e65-4fac-8092-64f8496ca4b0" />
+
+<img width="2564" height="2631" alt="image" src="https://github.com/user-attachments/assets/2dbb5b25-3bed-4f90-8b58-81d7330db1be" />
+
+<img width="2664" height="2048" alt="image" src="https://github.com/user-attachments/assets/739c4d07-2032-4b71-b7ce-2c1c10c2fb9a" />
+
+---
